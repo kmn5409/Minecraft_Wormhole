@@ -1,0 +1,8 @@
+name: WormHole
+main: com.keanunichols.wormhole.Main
+version: 1.0
+api-version: 1.13
+commands:
+   lightning:
+      description: wormhole
+      useage:  /wormhole
