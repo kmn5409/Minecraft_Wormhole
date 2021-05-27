@@ -28,6 +28,7 @@ public class Main extends JavaPlugin {
             public void run()
             {			
             	Object[] plrs = Bukkit.getOnlinePlayers().toArray();
+            	Random random_Location = new Random();
             	int size = plrs.length;
             	if(size > 0){
             		Random rand = new Random(); 
@@ -35,7 +36,7 @@ public class Main extends JavaPlugin {
             		//int random = new Random().nextInt(numPlayers);
             		//Player player = (Player)Bukkit.getOnlinePlayers().toArray()[random];
             		Wormhole wh = new Wormhole();
-            		final Location loca = wh.generateWormhole((Player)plrs[n]);
+            		final Location loca = wh.generateWormhole((Player)plrs[n], random_Location);
             		final Player plr = (Player)plrs[n];
             		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 
