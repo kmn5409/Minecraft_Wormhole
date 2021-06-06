@@ -15,8 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 	
 	public long randomNumberTime(){
-		long leftLimit = 400L;
-	    long rightLimit = 600L;
+		long leftLimit = 1200L;
+	    long rightLimit = 1300L;
 	    long generatedLong = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
 		return generatedLong;
 	}
@@ -24,35 +24,20 @@ public class Main extends JavaPlugin {
 	
 	public void getWormHole(Object [] plrs, Random random_Location, int size,final boolean type, JavaPlugin plugin){
 		if(size > 0){
-    		Random rand = new Random(); 
-        	int n = rand.nextInt(plrs.length); 
-    		//int random = new Random().nextInt(numPlayers);
-    		//Player player = (Player)Bukkit.getOnlinePlayers().toArray()[random];
-        	/*
-        	for (Player plr : Bukkit.getServer().getOnlinePlayers()) {
-        		plr.sendMessage("inside");
-        		plr.sendMessage("" + Math.ceil(plrs.length/2));
-        	}
-        	*/
-        	int num = (int)Math.ceil((double)plrs.length/(double)2);
-        	for(int i=1; i<=num; i++){
-        		/*
-        		for (Player plr : Bukkit.getServer().getOnlinePlayers()) {
-            		plr.sendMessage("further inside");
-            	}
-            	*/
-        		
+        	for(Player plr: Bukkit.getServer().getOnlinePlayers()){
         		Wormhole wh = new Wormhole();
-        		final Location[] loca = wh.generateWormhole((Player)plrs[n], random_Location, type);
-        		final Player person = (Player)plrs[n];
+        		//Player plr = (Player)plrs[n];
+        		final Location[] loca = wh.generateWormhole(plr, random_Location, type);
+        		//final Player person = (Player)plrs[n];
+        		final Player person = plr;
         		if(type){
 	        		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 	
 	
 	        			public void run() {
 	                        // Send the message
-	                    	System.out.println("Delayed");
-	                    	person.sendMessage(""+loca[0].getBlockY());
+	                    	//System.out.println("Delayed");
+	                    	//person.sendMessage(""+loca[0].getBlockY());
 	                    	person.teleport(loca[0]);
 	                    }
 	                }, 10L);
@@ -63,14 +48,14 @@ public class Main extends JavaPlugin {
 
         			public void run() {
                         // Send the message
-                    	System.out.println("removed wormhole");
+                    	//System.out.println("removed wormhole");
                     	Wormhole wh = new Wormhole();
                     	if(type){
-                    		person.sendMessage(""+loca[1].getBlockY());
+                    		//person.sendMessage(""+loca[1].getBlockY());
                     		wh.removeWormHole(loca[1]);
                     	}
                     	else{
-                    		person.sendMessage(""+loca[0].getBlockY());
+                    		//person.sendMessage(""+loca[0].getBlockY());
                     		wh.removeWormHole(loca[0]);
                     		
                     	}
@@ -93,20 +78,25 @@ public class Main extends JavaPlugin {
             	int size = plrs.length;
             	Random rd = new Random(); // creating Random object
             	if(rd.nextBoolean()){
+            		/*
             		for (Player plr : Bukkit.getServer().getOnlinePlayers()) {
                 		plr.sendMessage("teleporting player");
                 	}
+                	*/
             		getWormHole(plrs, random_Location, size,true, plugin);
             	}
             	else{
+            		/*
             		for (Player plr : Bukkit.getServer().getOnlinePlayers()) {
                 		plr.sendMessage("spawning enemies");
                 	}
+                	*/
             		getWormHole(plrs, random_Location, size, false, plugin);
             	}
             	
             }
-        }, 300L, randomNumberTime());
+        //}, 1200, randomNumberTime());
+        }, 1100, randomNumberTime());
     }
     @Override
     public void onDisable() {

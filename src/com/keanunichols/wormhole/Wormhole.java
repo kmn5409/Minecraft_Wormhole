@@ -43,18 +43,13 @@ public class Wormhole{
 		wld.spawnEntity(randLoc.add(0,7,0), EntityType.GHAST);
 	}
 	
-	protected void pyramid(Location loc, Material mat, int r) {
+	protected void pyramid(Location loc, int r) {
 		Material[] wormholeBlockTypes = new Material[] {Material.CYAN_STAINED_GLASS,Material.RED_STAINED_GLASS, Material.AIR};
 	    int px = loc.getBlockX();
 	    int py = loc.getBlockY();
 	    int pz = loc.getBlockZ();
 	    World w = loc.getWorld();
-	    /*
-	    int upper_x = px+2;
-	    int upper_z = pz+2;
-	    int lower_x = px-2;
-	    int lower_z = pz-2;
-	    */
+	    
 		for(int x=px-1; x<=px+1; x++){
 			for(int z=pz-1; z<=pz+1; z++){
 				if(x == px && z==pz){
@@ -82,16 +77,6 @@ public class Wormhole{
 				w.getBlockAt(x, py, z).setType(wormholeBlockTypes[2]);
 			}
 		}
-
-		    
-	    /*
-	    for (int x = cx - r; x <= cx +r; x++) {
-	        for (int z = cz - r; z <= cz +r; z++) {
-	            if ((cx - x) * (cx - x) + (cz - z) * (cz - z) <= rSquared) {
-	                w.getBlockAt(x, cy, z).setType(mat);
-	            }
-	        }
-	    }*/
 	}
 	
 	protected void removeWormHole(Location loc){
@@ -99,12 +84,7 @@ public class Wormhole{
 	    int py = loc.getBlockY();
 	    int pz = loc.getBlockZ();
 	    World w = loc.getWorld();
-	    /*
-	    int upper_x = px+2;
-	    int upper_z = pz+2;
-	    int lower_x = px-2;
-	    int lower_z = pz-2;
-	    */
+
 		for(int x=px-1; x<=px+1; x++){
 			for(int z=pz-1; z<=pz+1; z++){
 				if(x == px && z==pz){
@@ -126,20 +106,17 @@ public class Wormhole{
 		
 	}
 	
-	//for five height create the glass (3,5,7,9,11)(top to bottom)
-	//                                 (green,cyan,blue,black,red)
-	protected Location[] generateWormhole(Player plr,Random rand, Boolean wormHolePlayer){
-		plr.sendMessage("Spawned block");
+	protected Location[] generateWormhole(Player plr,Random rand, boolean wormHolePlayer){
+		//plr.sendMessage("Spawned block");
 		Location pLocation = plr.getLocation();
 		World wld = plr.getWorld();
 		for(int i=0;i<8;i++){
 			Location nLocation = pLocation.add(0,1,0);
-			System.out.println(nLocation.toString());
+			//System.out.println(nLocation.toString());
 			nLocation.getBlock().setType(Material.AIR);
 		}
 		if(wormHolePlayer){
-			pyramid(pLocation,Material.OBSIDIAN,2);
-			//pLocation = pLocation.add(0,1,0);
+			pyramid(pLocation,2);
 			moveToward(plr,pLocation,5);
 			int randomY = randomInt(15,40);
 			int randomX = randomInt(5,10);
@@ -150,13 +127,11 @@ public class Wormhole{
 		}else{
 			spawnEnemies(plr, pLocation,wld, rand);
 			
-			System.out.println("spawned block\n\n");
-			pyramid(pLocation,Material.OBSIDIAN,2);
+			//System.out.println("spawned block\n\n");
+			pyramid(pLocation, 2);
 		}
 		Location[] locations = {pLocation};
 		return locations;
-		
-		//System.out.println("After");
 	}
 
 }
